@@ -27,8 +27,13 @@ y = 1.8*x**3 + x**2 - 14*x - 7 + np.random.randn(N)
 # 将其设置为矩阵
 x.shape = -1, 1
 y.shape = -1, 1
+print(x)
+print(y)
 
 # RidgeCV和Ridge的区别是：前者可以进行交叉验证
+# alphas对应Ridge和Lasso回归公式的λ，l1_ratio对应ElasticNet的P
+# 由于不知道λ和P 哪个参数好，这里随便设置了一些参数来调试
+# p的参数过小，有时会报“objective did not converge”参数不收敛异常
 models = [
     Pipeline([
             ('Poly', PolynomialFeatures()),
@@ -77,7 +82,9 @@ for i, d in enumerate(degree):
 
     z = N - 1 if (d == 2) else 0
     label = u'%d阶, 正确率=%.3f' % (d, s)
-    plt.plot(x_hat, y_hat, color=colors[i], lw=2, alpha=0.75, label=label, zorder=z)
+    # alpha参数：图表的填充不透明(0-1)
+    # 参数详解：http://blog.csdn.net/jinlong_xu/article/details/70175107
+    plt.plot(x_hat, y_hat, color=colors[i], lw=2, alpha=0.8, label=label, zorder=z)
 
     plt.legend(loc='upper left')
     plt.grid(True)
@@ -137,3 +144,6 @@ for t in range(4):
 plt.tight_layout()
 plt.suptitle(u'各种不同线性回归过拟合显示', fontsize=22)
 plt.show()
+
+# 如果结果显示3、5、7、9阶数的正确率都差不多，优先选择阶层少的。因为阶层少，参数少，模型更简单
+# 看结果显示的系数就知道，那些有很多值为0的，分别是Lasso和ElasticNet。它们可以用来降维
