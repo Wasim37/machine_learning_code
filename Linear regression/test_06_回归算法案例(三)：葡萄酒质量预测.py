@@ -15,7 +15,8 @@ from sklearn.cross_validation import train_test_split
 # 设置字符集，防止中文乱码
 mpl.rcParams['font.sans-serif'] = [u'simHei']
 mpl.rcParams['axes.unicode_minus'] = False
-# 拦截异常
+
+# 拦截异常，忽略那些影响美观但是不影响运行的警告信息
 warnings.filterwarnings(action='ignore', category=ConvergenceWarning)
 
 # 读取数据
@@ -98,7 +99,6 @@ for t in range(4):
 
         # 图形展示
         plt.plot(ln_x_test, Y_pre, c=clrs[i], lw=2, alpha=0.75, zorder=i, label=u'%d阶预测值,$R^2$=%.3f' % (d, R))
-
     plt.legend(loc='upper left')
     plt.grid(True)
     plt.title(titles[t], fontsize=18)

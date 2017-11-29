@@ -24,7 +24,7 @@ def notEmpty(s):
 mpl.rcParams['font.sans-serif'] = [u'simHei']
 mpl.rcParams['axes.unicode_minus'] = False
 
-# 拦截异常
+# 拦截异常，忽略那些影响美观但是不影响运行的警告信息
 warnings.filterwarnings(action='ignore', category=ConvergenceWarning)
 
 # 加载数据
