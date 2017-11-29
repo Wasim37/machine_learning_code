@@ -27,9 +27,9 @@ mpl.rcParams['font.sans-serif'] = [u'simHei']
 mpl.rcParams['axes.unicode_minus'] = False
 
 # 加载数据
-# path = 'datas\household_power_consumption.txt' ## 全部数据
-# path = 'datas\household_power_consumption_200.txt' ## 200行数据
-path = 'datas\household_power_consumption_1000.txt'  ## 1000行数据
+# path = 'notebook\datas\household_power_consumption.txt' ## 全部数据
+# path = 'notebook\datas\household_power_consumption_200.txt' ## 200行数据
+path = 'notebook\datas\household_power_consumption_1000.txt'  ## 1000行数据
 df = pd.read_csv(path, sep=';', low_memory=False)
 
 # 日期、时间、有功功率、无功功率、电压、电流、厨房用电功率、洗衣服用电功率、热水器用电功率

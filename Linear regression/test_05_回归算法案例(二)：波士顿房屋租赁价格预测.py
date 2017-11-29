@@ -15,49 +15,53 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.grid_search import GridSearchCV
 from sklearn import metrics
 
+
 def notEmpty(s):
     return s != ''
 
-## 设置字符集，防止中文乱码
-mpl.rcParams['font.sans-serif']=[u'simHei']
-mpl.rcParams['axes.unicode_minus']=False
-## 拦截异常
-warnings.filterwarnings(action = 'ignore', category=ConvergenceWarning)
 
-## 加载数据
-names = ['CRIM','ZN', 'INDUS','CHAS','NOX','RM','AGE','DIS','RAD','TAX','PTRATIO','B','LSTAT']
-path = "datas/boston_housing.data"
-## 由于数据文件格式不统一，所以读取的时候，先按照一行一个字段属性读取数据，然后再安装每行数据进行处理
+# 设置字符集，防止中文乱码
+mpl.rcParams['font.sans-serif'] = [u'simHei']
+mpl.rcParams['axes.unicode_minus'] = False
+
+# 拦截异常
+warnings.filterwarnings(action='ignore', category=ConvergenceWarning)
+
+# 加载数据
+names = ['CRIM', 'ZN', 'INDUS', 'CHAS', 'NOX', 'RM', 'AGE', 'DIS', 'RAD', 'TAX', 'PTRATIO', 'B', 'LSTAT']
+path = "notebook/datas/boston_housing.data"
+
+# 由于数据文件格式不统一，所以读取的时候，先按照一行一个字段属性读取数据，然后再安装每行数据进行处理
 fd = pd.read_csv(path, header=None)
 data = np.empty((len(fd), 14))
 for i, d in enumerate(fd.values):
     d = map(float, filter(notEmpty, d[0].split(' ')))
     data[i] = d
 
-## 分割数据
+# 分割数据
 x, y = np.split(data, (13,), axis=1)
-y = y.ravel() # 转换格式
+y = y.ravel()  # 转换格式
 
 print("样本数据量:%d, 特征个数：%d" % x.shape)
 print("target样本数据量:%d" % y.shape[0])
 
-## Pipeline常用于并行调参
+# Pipeline常用于并行调参
 models = [
     Pipeline([
-            ('ss', StandardScaler()),
-            ('poly', PolynomialFeatures()),
-            ('linear', RidgeCV(alphas=np.logspace(-3,1,20)))
-        ]),
+        ('ss', StandardScaler()),
+        ('poly', PolynomialFeatures()),
+        ('linear', RidgeCV(alphas=np.logspace(-3, 1, 20)))
+    ]),
     Pipeline([
-            ('ss', StandardScaler()),
-            ('poly', PolynomialFeatures()),
-            ('linear', LassoCV(alphas=np.logspace(-3,1,20)))
-        ])
+        ('ss', StandardScaler()),
+        ('poly', PolynomialFeatures()),
+        ('linear', LassoCV(alphas=np.logspace(-3, 1, 20)))
+    ])
 ]
 
 # 参数
 parameters = {
-    "poly__degree": [3,2,1],
+    "poly__degree": [3, 2, 1],
     "poly__interaction_only": [True, False],
     "poly__include_bias": [True, False],
     "linear__fit_intercept": [True, False]
@@ -66,7 +70,7 @@ parameters = {
 # 数据分割
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=0)
 
-## Lasso和Ridge模型比较运行图表展示
+# Lasso和Ridge模型比较运行图表展示
 titles = ['Ridge', 'Lasso']
 colors = ['g-', 'b-']
 plt.figure(figsize=(16, 8), facecolor='w')
@@ -93,19 +97,18 @@ plt.grid(True)
 plt.title(u"波士顿房屋价格预测")
 plt.show()
 
-## 模型训练 ====> 单个Lasso模型（一阶特征选择）<2参数给定1阶情况的最优参数>
+# 模型训练 ====> 单个Lasso模型（一阶特征选择）<2参数给定1阶情况的最优参数>
 model = Pipeline([
-            ('ss', StandardScaler()),
-            ('poly', PolynomialFeatures(degree=1, include_bias=True, interaction_only=True)),
-            ('linear', LassoCV(alphas=np.logspace(-3,1,20), fit_intercept=False))
-        ])
+    ('ss', StandardScaler()),
+    ('poly', PolynomialFeatures(degree=1, include_bias=True, interaction_only=True)),
+    ('linear', LassoCV(alphas=np.logspace(-3, 1, 20), fit_intercept=False))
+])
 # 模型训练
 model.fit(x_train, y_train)
 
-
 # 模型评测
-## 数据输出
-print("参数:", zip(names,model.get_params('linear')['linear'].coef_))
+# 数据输出
+print("参数:", zip(names, model.get_params('linear')['linear'].coef_))
 print("截距:", model.get_params('linear')['linear'].intercept_)
 
 # 参数: [('CRIM', 21.135499741068376), ('ZN', -0.0), ('INDUS', -0.0), ('CHAS', -0.0), ('NOX', 0.19539929236955278), ('RM', -0.0), ('AGE', 1.5662356175920531), ('DIS', -0.38131114313786807), ('RAD', -0.69604251661926086), ('TAX', 0.0), ('PTRATIO', -0.0), ('B', -1.5063986238529539), ('LSTAT', 0.0)]

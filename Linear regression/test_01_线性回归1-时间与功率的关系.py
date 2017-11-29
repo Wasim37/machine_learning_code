@@ -11,7 +11,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
 # 引入文件
-path = 'datas\household_power_consumption_1000.txt'
+path = 'notebook\datas\household_power_consumption_1000.txt'
 names = ['Date', 'Time', 'Global_active_power', 'Global_reactive_power', 'Voltage', 'Global_intensity',
          'Sub_metering_1', 'Sub_metering_2', 'Sub_metering_3']
 
