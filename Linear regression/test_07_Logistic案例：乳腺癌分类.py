@@ -41,19 +41,25 @@ ss = StandardScaler()
 X_train = ss.fit_transform(X_train) ## 训练模型及归一化数据
 
 # 3. 模型构建及训练
-## penalty: 过拟合解决参数,l1或者l2
+# penalty（惩罚）：用于指定惩罚中使用的标准，值为l1或者l2正则
+## 当penalty为L1的时候，参数只能是：liblinear(坐标轴下降法)；因为lbfgs和cg都是关于目标函数的二阶泰勒展开，要求二阶导，但是L1只有一阶导
+## 当penalty为L2的时候，参数可以是：lbfgs(拟牛顿法，用的最多的)、newton-cg(牛顿法变种)、seg(minbatch 小批量梯度下降，一般很少用)
+## PS：但维度<10000时，优先选lbfgs; 维度>10000时，用cg更好更快。当显卡计算的时候，lbfgs和cg都比seg快
 
-## solver: 参数优化方式
-### 当penalty为l1的时候，参数只能是：liblinear(坐标轴下降法)；
-### 当penalty为l2的时候，参数可以是：lbfgs(拟牛顿法)、newton-cg(牛顿法变种)
+# solver: 对应penalty惩罚下的优化方式，默认：lbfgs
+# tol：容忍停止标准，设置一个下限，防止过拟合
+# cv：整数或交叉验证生成器，一般五折或者十折，这里数据太少，用个二折测试下
+# Cs: 每个值描述正则化强度的倒数。如果Cs是一个整数，则在1e-4和1e4之间选择一个Cs值的对数格。就像在支持向量机中一样，较小的值指定更强的正则化。
 
-## multi_class: 分类方式参数；参数可选: ovr(默认)、multinomial；这两种方式在二元分类问题中，效果是一样的；在多元分类问题中，效果不一样
-### ovr: one-vs-rest， 对于多元分类的问题，先将其看做二元分类，分类完成后，再迭代对其中一类继续进行二元分类
-### multinomial: many-vs-many（MVM）,对于多元分类问题，如果模型有T类，我们每次在所有的T类样本里面选择两类样本出来，
-#### 不妨记为T1类和T2类，把所有的输出为T1和T2的样本放在一起，把T1作为正例，T2作为负例，
-#### 进行二元逻辑回归，得到模型参数。我们一共需要T(T-1)/2次分类
+# multi_class: 分类方式参数；参数可选: ovr(默认)、multinomial；这两种方式在二元分类问题中，效果是一样的；在多元分类问题中，效果不一样
+## ovr: one-vs-rest， 对于多元分类的问题，先将其看做二元分类，分类完成后，再迭代对其中一类继续进行二元分类
+## multinomial: many-vs-many（MVM）,对于多元分类问题，如果模型有T类，我们每次在所有的T类样本里面选择两类样本出来，
+## 不妨记为T1类和T2类，把所有的输出为T1和T2的样本放在一起，把T1作为正例，T2作为负例，
+## 进行二元逻辑回归，得到模型参数。我们一共需要T(T-1)/2次分类
 
 ## class_weight: 特征权重参数
+
+# lr的简称一般代表逻辑回归，不代表线性回归
 lr = LogisticRegressionCV(fit_intercept=True, Cs=np.logspace(-2, 2, 20), cv=2, penalty='l2', solver='lbfgs', tol=0.01)
 lr.fit(X_train, Y_train)
 

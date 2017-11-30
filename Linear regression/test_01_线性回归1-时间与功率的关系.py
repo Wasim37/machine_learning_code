@@ -50,13 +50,23 @@ print(X.head(5))
 print(Y.head(5))
 
 # 对数据集进行训练集、测试集划分
+# test_size是样本占比，如果是整数的话就是样本的数量
+# random_state 是随机数的种子。其实就是该组随机数的编号，在需要重复试验的时候，保证得到一组一样的随机数。
+# 种子不同，产生不同的随机数；种子相同，即使实例不同也产生相同的随机数。
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=0)
 
-# 标准化数据，保证每个维度的特征数据方差为1，均值为0，使得预测结果不会被某些维度过大的特征值而主导
+# 标准化：将数据变换为均值为0、标准差为1的标准正态分布，使得预测结果不会被某些维度过大的特征值而主导
+# 标准化并不是为了方便与其他数据一同处理或比较，而是为数据的下一步处理做准备
+# 比如数据经过零-均值标准化后，更利于使用标准正态分布的性质
+ss=StandardScaler()
+# fit_transform()先训练拟合数据，再标准化
+X_train=ss.fit_transform(X_train)
+X_test = ss.transform(X_test)
+
+# PS: 归一化与标准化的区别：https://www.zhihu.com/question/20467170
 ss = StandardScaler()
 # fit_transform()先训练拟合数据，再标准化
 X_train = ss.fit_transform(X_train)
-# 标准化数据
 X_test = ss.transform(X_test)
 
 # 训练模型

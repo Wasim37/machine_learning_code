@@ -15,4 +15,5 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import time
 
-
+names = ['sepal length', 'sepal width', 'petal length', 'petal width', 'cla']
+print(names[0:-2])
