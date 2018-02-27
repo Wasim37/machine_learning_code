@@ -6,8 +6,10 @@ from tflearn.layers.normalization import local_response_normalization # 进行�
 import tensorflow as tf
 import tflearn
 
-#
 from tflearn.layers.estimator import regression
+
+# lenet网络详解：http://blog.csdn.net/genius_zz/article/details/52804585
+# TensorBoard使用详解：http://geek.csdn.net/news/detail/197155
 
 X,Y,X_test,Y_test=mnist.load_data(one_hot=True)
 #print(X.shape) #55000,784

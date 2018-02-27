@@ -1,6 +1,8 @@
-#Sequentical模型
+# Keras中文文档：http://keras-cn.readthedocs.io/en/latest/
+# Sequentical模型
 # 实现一个lenet结构的网络
 # 引入mnist数据
+
 from tflearn.datasets import mnist
 #from keras.datasets import mnist
 # 引入网络结构的模块
@@ -31,6 +33,7 @@ input_shape=(img_rows,img_cols,1)
 # Y_test=to_categorical(Y_test,nb_classes)
 
 # 构建网络
+# Keras中主要的模型是Sequential模型，Sequential是一系列网络层按顺序构成的栈
 model=Sequential()
 # 卷积
 model.add(Conv2D(64,kernel_size,padding='valid',input_shape=input_shape))
