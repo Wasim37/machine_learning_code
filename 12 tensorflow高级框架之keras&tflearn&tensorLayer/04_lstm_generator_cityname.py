@@ -1,4 +1,5 @@
 # 使用lstm学习城市名称，并且进行数据的生成
+# 这里只是告诉你怎么进行数据的预测，其他比如语义方面不进行考虑
 import tflearn
 import requests
 

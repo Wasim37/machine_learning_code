@@ -1,6 +1,6 @@
 # 电影评论及评论对应的情感分类
 import tflearn
-from tflearn.datasets import imdb
+from tflearn.datasets import imdb # IMDB 是一个电影评论的数据库
 from tflearn.data_utils import to_categorical,pad_sequences
 train, valid, _=imdb.load_data()
 

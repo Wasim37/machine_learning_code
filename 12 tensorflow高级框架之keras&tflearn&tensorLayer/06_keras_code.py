@@ -3,6 +3,9 @@
 # 实现一个lenet结构的网络
 # 引入mnist数据
 
+# keras自动调用GPU？tflearn视情况去调用GPU还是CPU?
+# keras相对tflearn更适合实现复杂模型
+
 from tflearn.datasets import mnist
 #from keras.datasets import mnist
 # 引入网络结构的模块
@@ -15,7 +18,7 @@ X,Y,X_test,Y_test=mnist.load_data(one_hot=True)
 
 # 定义超参数
 batch_size=128
-nb_classes=Y.shape[1]
+nb_classes=Y.shape[1] #类别
 nb_epoch=20
 
 img_rows,img_cols=28,28
@@ -76,7 +79,7 @@ model.train_on_batch(x,y)
 
 import tempfile
 # 大部分情况，使用tempfile模块
-# 把模型保存为.h5 文件，即HDFS 5 文件
+# 把模型保存为.h5 文件，即HDFS 5 文件，因为它通常比modle这种文本文件小
 _,fname=tempfile.mkstemp('.h5')
 #save_model(model,'cnn.model')
 save_model(model,fname)

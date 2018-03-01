@@ -4,9 +4,13 @@ from tflearn.layers.conv import conv_2d,max_pool_2d
 from tflearn.layers.estimator import regression
 import tflearn
 
+# oxflower17 数据集没有测试集，可以通过 validation_set 手动分出测试集
 X,Y=oxflower17.load_data(one_hot=True,resize_pics=(224,224))
 
 # 建立VGG19结构
+# VGG结构详解：http://www.cnblogs.com/vipyoumay/p/7884472.html
+# VGG 在特征提取上经常有奇效
+
 network=input_data(shape=[None,224,224,3])
 # 第一层
 network=conv_2d(network,nb_filter=64,filter_size=3,activation='relu',name='block1_conv1')
@@ -49,9 +53,9 @@ network=fully_connected(network,4096,activation='relu')
 network=dropout(network,0.5)
 network=fully_connected(network,1000,activation='relu')
 network=dropout(network,0.5)
-# 输出
+# 输出 最终分出的结果有17类
 network=fully_connected(network,17,activation='softmax')
-# 建立优化器和损失函数
+# 建立优化器和损失函数，regression本身有很多默认值
 network=regression(network, optimizer='adam',
                loss='categorical_crossentropy',learning_rate=0.001)
 

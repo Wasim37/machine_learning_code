@@ -12,7 +12,7 @@ from tflearn.layers.estimator import regression
 # TensorBoard使用详解：http://geek.csdn.net/news/detail/197155
 
 X,Y,X_test,Y_test=mnist.load_data(one_hot=True)
-#print(X.shape) #55000,784
+print(X.shape) #55000,784
 # 55000,28,28,1 需要这样形式的数据
 X=X.reshape([-1,28,28,1])
 X_test=X_test.reshape([-1,28,28,1])

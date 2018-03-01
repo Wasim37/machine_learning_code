@@ -1,6 +1,12 @@
 import tflearn
 from tflearn.datasets import cifar10
 
+# cifar10是一个用于普适物体识别的数据集，由60000张32*32的 RGB 彩色图片构成，共10个分类。
+# cifar10 简介：http://blog.csdn.net/zeuseign/article/details/72773342
+
+# ResNet网络详解：https://www.jianshu.com/p/e58437f39f65
+# ResNet学习：http://blog.csdn.net/xxy0118/article/details/78324256
+
 # 引入数据
 (X,Y),(X_test,Y_test)=cifar10.load_data()
 # 对于标签的值进行矩阵二进制化
