@@ -1,0 +1,36 @@
+﻿Tensorflow高级框架
+1.高质量的元框架
+keras，tflearn，tensorLayer
+
+2.tflearn
+他的程序语法结构类似于sklearn
+建立在tensorflow顶部的模块化的深度学习框架。
+
+pip install tflearn
+
+3.对于神经网络而言，数值不存在分类含义
+one_hot-》表达分类含义
+神经网络，不仅仅是公式计算，或者说，在神经网络计算过程
+中，实际计算的都是一些二进制的值。所以说很难计算出
+一些实际的分类数值标签（1,2,3,4）
+
+4.Keras
+介绍：一个高级的神经网络模块，Keras已经被加入到
+tensorflow，称为默认的框架，为tensorflow提供了更为
+高级的一些API。（Keras都兼容Theano和Tensorflow）
+
+假设tensorflow类似于编程语言的c或者java，
+那么Keras类似于编程语言的Python
+安装：pip install keras
+优点：
+1.模块化
+2.极简主义
+3.易扩展性
+4.可以使用Python实现
+
+核心数据结构是模型，模型是用来组织网络层次结构的方式
+（1）Model模型，
+（2）Sequentical模型（一系列的网络按照顺序构成的栈）
+	单输入和单输出，层与层之间只有相邻关系
+
+
