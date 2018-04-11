@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebResourcesPaths">
+    <contentEntries>
+      <entry url="file://$PROJECT_DIR$/../tensorflow教程/NERuselocal">
+        <entryData>
+          <resourceRoots>
+            <path value="file://$PROJECT_DIR$/../tensorflow教程/NERuselocal" />
+          </resourceRoots>
+        </entryData>
+      </entry>
+      <entry url="file://$PROJECT_DIR$/../tensorflow教程/NERuselocal20180204">
+        <entryData>
+          <resourceRoots>
+            <path value="file://$PROJECT_DIR$/../tensorflow教程/NERuselocal20180204" />
+          </resourceRoots>
+        </entryData>
+      </entry>
+    </contentEntries>
+  </component>
+</project>

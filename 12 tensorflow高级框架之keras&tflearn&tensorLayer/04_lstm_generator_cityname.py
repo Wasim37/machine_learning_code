@@ -7,10 +7,12 @@ import requests
 # with open('US_Cities.txt','w') as f:
 #     f.write(text)
 string_utf8=open('US_Cities.txt').read()
+
 # 生成词典 word2vec
 maxlen=20 # 每个序列最长长度
 X,Y,char_idx=tflearn.data_utils.string_to_semi_redundant_sequences(string_utf8,seq_maxlen=maxlen,redun_step=3)
 print(char_idx)
+
 #print(X.shape)
 # string='床前明月光,疑是地上霜。举头望明月，低头思故乡。'
 # X,Y,char_idx=tflearn.data_utils.string_to_semi_redundant_sequences(string,seq_maxlen=4,redun_step=2)
@@ -42,7 +44,6 @@ g=tflearn.regression(g,optimizer='adam',loss='categorical_crossentropy',learning
 # 序列生成的深层神经网络模型
 # clip_gradients 梯度
 m=tflearn.SequenceGenerator(g,dictionary=char_idx,seq_maxlen=maxlen,clip_gradients=5.0,checkpoint_path='./model/lstm_gen/model',tensorboard_dir='./logs')
-
 
 # 循环遍历，进行序列生成
 for i in range(40):

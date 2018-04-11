@@ -2,6 +2,7 @@
 import tflearn
 from tflearn.datasets import imdb # IMDB 是一个电影评论的数据库
 from tflearn.data_utils import to_categorical,pad_sequences
+
 train, valid, _=imdb.load_data()
 
 X,Y=train
